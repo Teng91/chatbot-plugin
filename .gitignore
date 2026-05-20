@@ -10,3 +10,5 @@ htmlcov/
 .coverage
 *.egg
 .uv/
+.claude/
+src/DB_COMPARISON.md
