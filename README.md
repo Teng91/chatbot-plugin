@@ -4,6 +4,8 @@ Pluggable conversational AI chatbot for the [scrape-and-analyze](https://github.
 
 This plugin provides a RAG-enabled chatbot that can answer questions based on scraped articles, analyses, and tags from the scrape-and-analyze database.
 
+> **Status:** Early development. See [Roadmap](#roadmap) for planned features.
+
 ## Installation
 
 ```bash
@@ -36,35 +38,8 @@ CHATBOT_MAX_CONTEXT_TOKENS=8000
 
 ```bash
 curl -X POST http://localhost:8000/chat/message \
-  -H "Authorization: Bearer <your-jwt>" \
   -H "Content-Type: application/json" \
   -d '{"message": "What articles discuss RAG implementation?"}'
-```
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    scrape-and-analyze                        │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │   Frontend  │  │   Backend   │  │   chatbot-plugin    │  │
-│  │  (Next.js)  │──│  (FastAPI)  │◀─┤  (this plugin)      │  │
-│  └─────────────┘  └──────┬──────┘  └─────────────────────┘  │
-│                          │                                   │
-│                          ▼                                   │
-│                   ┌─────────────┐                            │
-│                   │  PostgreSQL │                            │
-│                   │  (articles, │                            │
-│                   │   analyses) │                            │
-│                   └─────────────┘                            │
-└─────────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-                    ┌─────────────┐
-                    │ LLM Provider│
-                    │ (Anthropic/ │
-                    │   Gemini)   │
-                    └─────────────┘
 ```
 
 ## Project Structure
@@ -77,7 +52,7 @@ chatbot-plugin/
 │       ├── __init__.py     # Package entry point
 │       ├── config.py       # Pydantic settings (CHATBOT_* env vars)
 │       ├── routers.py      # FastAPI router endpoints
-│       └── service.py      # Core chat logic (RAG + LLM)
+│       └── service.py      # Core chat logic (stub)
 └── tests/
     └── test_service.py     # Unit tests
 ```
@@ -111,10 +86,7 @@ Send a message and receive a chatbot reply.
 ```json
 {
   "reply": "Based on 3 articles, RAG implementation involves...",
-  "articles_used": [
-    {"id": "...", "title": "..."},
-    {"id": "...", "title": "..."}
-  ]
+  "articles_used": 3
 }
 ```
 
@@ -134,13 +106,14 @@ uv run pytest src/tests/ --cov=chatbot_plugin --cov-report=html
 
 ## Roadmap
 
-- [ ] RAG context retrieval from PostgreSQL
-- [ ] LLM provider integration (Claude, Gemini)
+- [ ] LLM provider integration (Claude, Gemini) via LangChain
+- [ ] RAG context retrieval from PostgreSQL (text-based first)
 - [ ] Streaming responses (SSE)
 - [ ] Chat history persistence
-- [ ] Frontend chat UI component
 - [ ] Multi-turn conversation support
 - [ ] Citation/linkback to source articles
+- [ ] Embedding & hybrid search (BGE-M3 dense + sparse, RRF fusion, pgvector)
+- [ ] Frontend chat UI component
 
 ## License
 
