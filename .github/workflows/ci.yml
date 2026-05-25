@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv sync --frozen --all-groups
+          uv sync --all-groups
         env:
           UV_SYSTEM_PYTHON: "1"
 
@@ -62,7 +62,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv sync --frozen --all-groups
+          uv sync --all-groups
         env:
           UV_SYSTEM_PYTHON: "1"
 
@@ -170,7 +170,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv sync --frozen --all-groups
+          uv sync --all-groups
         env:
           UV_SYSTEM_PYTHON: "1"
 
@@ -266,7 +266,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv sync --frozen --all-groups
+          uv sync --all-groups
         env:
           UV_SYSTEM_PYTHON: "1"
 
