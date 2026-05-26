@@ -50,18 +50,15 @@ class TestClaudeProvider:
 
 
 class TestGeminiProvider:
-    def _make_provider(self):
-        with patch("chatbot_plugin.llm.gemini_provider.genai") as mock_genai:
-            mock_client = MagicMock()
-            mock_genai.Client.return_value = mock_client
-            mock_genai.GenerateContentConfig = MagicMock()
-            from chatbot_plugin.llm.gemini_provider import GeminiProvider
-            provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
-            return provider, mock_client, mock_genai
-
     @pytest.mark.asyncio
-    async def test_call_api_success(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_success(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_response = MagicMock()
         mock_response.candidates = [MagicMock(finish_reason="STOP")]
         mock_response.text = "Hello from Gemini"
@@ -74,8 +71,14 @@ class TestGeminiProvider:
         assert result == "Hello from Gemini"
 
     @pytest.mark.asyncio
-    async def test_call_api_no_candidates_returns_empty(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_no_candidates_returns_empty(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_response = MagicMock()
         mock_response.candidates = []
         mock_client.models.generate_content.return_value = mock_response
@@ -84,8 +87,14 @@ class TestGeminiProvider:
         assert result == ""
 
     @pytest.mark.asyncio
-    async def test_call_api_blocked_finish_reason_returns_empty(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_blocked_finish_reason_returns_empty(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_response = MagicMock()
         mock_candidate = MagicMock(finish_reason="SAFETY")
         mock_response.candidates = [mock_candidate]
@@ -95,8 +104,14 @@ class TestGeminiProvider:
         assert result == ""
 
     @pytest.mark.asyncio
-    async def test_call_api_daily_quota_raises_rate_limit_exhausted(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_daily_quota_raises_rate_limit_exhausted(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_client.models.generate_content.side_effect = Exception(
             "429 RESOURCE_EXHAUSTED: PerDay limit exceeded"
         )
@@ -105,16 +120,28 @@ class TestGeminiProvider:
             await provider._call_api("sys", "human")
 
     @pytest.mark.asyncio
-    async def test_call_api_other_exception_reraises(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_other_exception_reraises(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_client.models.generate_content.side_effect = RuntimeError("network error")
 
         with pytest.raises(RuntimeError, match="network error"):
             await provider._call_api("sys", "human")
 
     @pytest.mark.asyncio
-    async def test_call_api_no_usage_metadata(self):
-        provider, mock_client, _ = self._make_provider()
+    @patch("chatbot_plugin.llm.gemini_provider.genai")
+    async def test_call_api_no_usage_metadata(self, mock_genai):
+        mock_client = MagicMock()
+        mock_genai.Client.return_value = mock_client
+        mock_genai.GenerateContentConfig = MagicMock()
+        from chatbot_plugin.llm.gemini_provider import GeminiProvider
+        provider = GeminiProvider(api_key="test-key", model="gemini-2.5-flash")
+
         mock_response = MagicMock()
         mock_response.candidates = [MagicMock(finish_reason="STOP")]
         mock_response.text = "ok"
