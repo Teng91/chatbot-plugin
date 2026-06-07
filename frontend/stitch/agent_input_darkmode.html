@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JS_NPM_LIBRARY | AI Search Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+
+        /* Enhanced Rainbow Border Animation */
+        .rainbow-border-wrap {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.5px; /* Refined thickness for professional look */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* Continuous high-fidelity rainbow animation */
+        .rainbow-border-wrap::before {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            background: conic-gradient(
+                from 0deg,
+                #4cd7f6,
+                #6366f1,
+                #a855f7,
+                #ec4899,
+                #4cd7f6
+            );
+            animation: rotate-rainbow 8s linear infinite;
+            z-index: 0;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
+        }
+
+        .rainbow-border-wrap:focus-within::before {
+            opacity: 1;
+            animation: rotate-rainbow 3s linear infinite;
+        }
+
+        @keyframes rotate-rainbow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .inner-search-bg {
+            position: relative;
+            z-index: 1;
+            background: #0b1326; /* Solid background to mask the gradient center */
+            border-radius: 0.9rem;
+        }
+
+        .glow-aura {
+            filter: blur(60px);
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+        }
+
+        .rainbow-border-wrap:focus-within .glow-aura {
+            opacity: 0.6;
+        }
+
+        .spectrum-loader {
+            border: 2px solid transparent;
+            border-top: 2px solid #4cd7f6;
+            border-right: 2px solid #ec4899;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Pulsing AI Processing Indicator */
+        .ai-processing-pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.3) drop-shadow(0 0 12px rgba(99, 102, 241, 0.5)); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-secondary-fixed": "#001f26",
+                "on-primary-container": "#0d0096",
+                "tertiary": "#ffb0cd",
+                "on-background": "#dae2fd",
+                "secondary-container": "#03b5d3",
+                "inverse-on-surface": "#283044",
+                "on-tertiary": "#640039",
+                "outline-variant": "#464554",
+                "surface-container": "#171f33",
+                "on-surface-variant": "#c7c4d7",
+                "on-error": "#690005",
+                "tertiary-fixed-dim": "#ffb0cd",
+                "on-secondary-container": "#00424e",
+                "on-tertiary-fixed": "#3e0022",
+                "tertiary-fixed": "#ffd9e4",
+                "error": "#ffb4ab",
+                "on-secondary-fixed-variant": "#004e5c",
+                "surface-container-high": "#222a3d",
+                "background": "#0b1326",
+                "secondary-fixed-dim": "#4cd7f6",
+                "on-primary-fixed": "#07006c",
+                "on-primary": "#1000a9",
+                "primary-fixed-dim": "#c0c1ff",
+                "on-tertiary-container": "#570032",
+                "outline": "#908fa0",
+                "on-surface": "#dae2fd",
+                "inverse-surface": "#dae2fd",
+                "on-tertiary-fixed-variant": "#8c0053",
+                "surface-container-lowest": "#060e20",
+                "primary": "#c0c1ff",
+                "tertiary-container": "#f751a1",
+                "primary-fixed": "#e1e0ff",
+                "on-secondary": "#003640",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "inverse-primary": "#494bd6",
+                "surface-bright": "#31394d",
+                "surface-variant": "#2d3449",
+                "secondary-fixed": "#acedff",
+                "surface-container-low": "#131b2e",
+                "surface-dim": "#0b1326",
+                "surface": "#0b1326",
+                "secondary": "#4cd7f6",
+                "surface-tint": "#c0c1ff",
+                "surface-container-highest": "#2d3449",
+                "on-error-container": "#ffdad6",
+                "error-container": "#93000a",
+                "primary-container": "#8083ff"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "margin-desktop": "64px",
+                "gutter": "24px",
+                "unit": "4px",
+                "margin-mobile": "16px",
+                "max-width": "1200px"
+              },
+              "fontFamily": {
+                "body-lg": ["Geist"],
+                "body-md": ["Geist"],
+                "headline-lg-mobile": ["Geist"],
+                "headline-lg": ["Geist"],
+                "code-sm": ["Space Mono"],
+                "headline-md": ["Geist"],
+                "label-mono": ["Space Mono"]
+              },
+              "fontSize": {
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "code-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "label-mono": ["13px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="selection:bg-primary/30 selection:text-primary">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full bg-surface/80 backdrop-blur-xl text-primary font-headline-md text-headline-md shadow-sm border-b border-outline-variant/10 z-50 flex items-center justify-between px-margin-mobile h-16 transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<span class="font-label-mono text-label-mono tracking-tighter text-secondary">JS_NPM_LIBRARY</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6 font-label-mono text-label-mono">
+<a class="text-primary hover:bg-primary/10 px-3 py-1 rounded transition-colors" href="#">Documentation</a>
+<a class="text-on-surface-variant hover:bg-primary/10 px-3 py-1 rounded transition-colors" href="#">Packages</a>
+<a class="text-on-surface-variant hover:bg-primary/10 px-3 py-1 rounded transition-colors" href="#">Analytics</a>
+</nav>
+<button class="material-symbols-outlined p-2 hover:bg-primary/10 rounded-full transition-all">settings</button>
+</div>
+</header>
+<main class="min-h-screen pt-32 pb-32 px-4 flex flex-col items-center">
+<!-- Title -->
+<div class="mb-12 text-center">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-2">AI Search Mode</h1>
+<p class="font-body-md text-on-surface-variant max-w-lg mx-auto">Query the JavaScript ecosystem using high-performance AI reasoning and real-time package analysis.</p>
+</div>
+<!-- Search Container -->
+<div class="w-full max-w-3xl relative">
+<div class="glow-aura absolute inset-0 -z-10 rounded-2xl"></div>
+<div class="rainbow-border-wrap shadow-2xl">
+<div class="inner-search-bg p-1 flex items-center gap-3">
+<span class="material-symbols-outlined ml-4 text-secondary/70">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-lg text-body-lg py-4 placeholder:text-on-surface-variant/40" id="search-input" placeholder="Search for library usage, benchmarks, or NPM data..." type="text"/>
+<button class="bg-primary text-on-primary font-label-mono text-label-mono px-6 py-3 rounded-lg mr-2 hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] transition-all z-10" id="search-trigger">
+                        EXECUTE
+                    </button>
+</div>
+</div>
+</div>
+<!-- Dynamic Output Canvas -->
+<div class="w-full max-w-3xl mt-12 space-y-8 hidden" id="output-canvas">
+<!-- AI Processing Indicator -->
+<div class="flex flex-col items-center gap-4 mb-4" id="processing-indicator">
+<div class="flex items-center gap-3 px-5 py-2 rounded-full border border-primary/20 bg-primary/5 ai-processing-pulse">
+<div class="spectrum-loader"></div>
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest">AI processing in progress...</span>
+</div>
+</div>
+<!-- Thinking State -->
+<div class="glass-card rounded-xl p-6 flex items-center gap-4 hidden" id="thinking-state">
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-label-mono text-secondary uppercase">EXECUTING_NPM_REGISTRY_QUERY</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant/60">latency: 42ms</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Analyzing dependencies and bundle sizes for requested package...</p>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-primary w-2/3 animate-pulse"></div>
+</div>
+</div>
+</div>
+<!-- Tool Output Area -->
+<div class="hidden" id="tool-output">
+<div class="mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">dataset</span>
+<span class="font-label-mono text-label-mono text-tertiary uppercase">Structured Result: Package Metrics</span>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border-tertiary/20">
+<div class="bg-surface-container-highest/30 px-6 py-4 border-b border-outline-variant/10 flex justify-between items-center">
+<span class="font-code-sm text-code-sm text-secondary">mcp_tool: get_bundle_stats</span>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-error/40"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary/40"></span>
+<span class="w-3 h-3 rounded-full bg-secondary/40"></span>
+</div>
+</div>
+<div class="p-6 overflow-x-auto">
+<table class="w-full text-left font-code-sm text-code-sm">
+<thead>
+<tr class="text-on-surface-variant border-b border-outline-variant/10">
+<th class="pb-3 pr-4">Version</th>
+<th class="pb-3 pr-4">Minified</th>
+<th class="pb-3 pr-4">Gzipped</th>
+<th class="pb-3">Downloads</th>
+</tr>
+</thead>
+<tbody class="text-on-surface">
+<tr class="border-b border-outline-variant/5">
+<td class="py-4 pr-4">2.1.0</td>
+<td class="py-4 pr-4">42.4 KB</td>
+<td class="py-4 pr-4">12.1 KB</td>
+<td class="py-4">1.2M/wk</td>
+</tr>
+<tr>
+<td class="py-4 pr-4">2.0.8</td>
+<td class="py-4 pr-4">41.8 KB</td>
+<td class="py-4 pr-4">11.9 KB</td>
+<td class="py-4">980K/wk</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Summary Area -->
+<div class="hidden" id="summary-output">
+<div class="mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-mono text-label-mono text-primary uppercase">AI Synthesis</span>
+</div>
+<div class="glass-card rounded-xl p-6 border-l-4 border-primary shadow-lg shadow-primary/5">
+<p class="font-body-md text-on-surface mb-4 leading-relaxed">
+                        The requested package shows high stability and a low footprint in its latest stable release (v2.1.0). Compared to its main competitors, it maintains a <span class="text-secondary font-bold">15% smaller gzipped size</span> while providing broader component coverage.
+                    </p>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-code-sm text-code-sm text-on-surface-variant flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors">
+<span><span class="text-secondary">npm</span> i @shadcn/ui --save-dev</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">content_copy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Placeholder Illustration -->
+<div class="mt-20 opacity-40 flex flex-col items-center" id="empty-state">
+<div class="w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 flex items-center justify-center p-8 relative">
+<div class="absolute inset-0 rounded-full border border-primary/10 animate-ping" style="animation-duration: 3s;"></div>
+<img class="w-full h-full object-cover rounded-full grayscale mix-blend-screen opacity-60" data-alt="AI Kernel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABvOGd3YvZPbKezIuu8GaPX6xMD-B_zx5eLajBrwXggTh7aGLjHoQSd0rYSPagZcXMkKuxoGO7oBjVztmC3lnVyJTBfuFk8eYP2DBkRlZQIPzt8WYwcP0xnYKedkP6nclPqFXxno3f7QvUNOYCmcYstEunZcH-r6OFxlSYPaXJiFa_oRcHxtWLCniaDi-kyHTAS9rE4ywHSh_XHF0vNjQR5QNk-zHD2ZR6cVXBpT105L1w_hbTTsYBS8hFyOwUdDnVg8ynH5iO3g"/>
+</div>
+<p class="mt-8 font-label-mono text-label-mono uppercase tracking-[0.2em] text-on-surface-variant/60">Awaiting Command Input...</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container/60 backdrop-blur-2xl border-t border-outline-variant/10 rounded-t-xl shadow-[0_-8px_32px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 p-3 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">package</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container/20 text-secondary rounded-full p-3 shadow-[0_0_15px_rgba(76,215,246,0.2)]" href="#">
+<span class="material-symbols-outlined">search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 p-3 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 p-3 hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+<script>
+        const searchInput = document.getElementById('search-input');
+        const trigger = document.getElementById('search-trigger');
+        const canvas = document.getElementById('output-canvas');
+        const emptyState = document.getElementById('empty-state');
+        const processingIndicator = document.getElementById('processing-indicator');
+        const thinking = document.getElementById('thinking-state');
+        const toolOutput = document.getElementById('tool-output');
+        const summary = document.getElementById('summary-output');
+
+        function triggerSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+
+            emptyState.style.display = 'none';
+            canvas.classList.remove('hidden');
+            
+            processingIndicator.classList.remove('hidden');
+            thinking.classList.add('hidden');
+            toolOutput.classList.add('hidden');
+            summary.classList.add('hidden');
+
+            setTimeout(() => {
+                thinking.classList.remove('hidden');
+                thinking.classList.add('animate-in', 'fade-in', 'duration-300');
+                
+                setTimeout(() => {
+                    toolOutput.classList.remove('hidden');
+                    toolOutput.classList.add('animate-in', 'fade-in', 'slide-in-from-bottom-4', 'duration-500');
+                    
+                    setTimeout(() => {
+                        summary.classList.remove('hidden');
+                        summary.classList.add('animate-in', 'fade-in', 'slide-in-from-bottom-4', 'duration-700');
+                        processingIndicator.classList.add('hidden');
+                        
+                        window.scrollTo({
+                            top: document.body.scrollHeight,
+                            behavior: 'smooth'
+                        });
+                    }, 1000);
+                }, 1200);
+            }, 800);
+        }
+
+        trigger.addEventListener('click', triggerSearch);
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') triggerSearch();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const aura = document.querySelector('.glow-aura');
+            if (document.activeElement === searchInput) {
+                const rect = aura.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                aura.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(99, 102, 241, 0.6) 0%, transparent 65%)`;
+            }
+        });
+    </script>
+</body></html>
