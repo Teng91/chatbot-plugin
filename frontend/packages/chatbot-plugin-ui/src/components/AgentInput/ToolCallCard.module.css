@@ -1,0 +1,105 @@
+.card {
+  background: var(--cp-surface-container-low);
+  border: 1px solid var(--cp-outline-variant);
+  border-radius: var(--cp-radius-md);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.75rem;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.iconWrap {
+  width: 2rem;
+  height: 2rem;
+  background: color-mix(in srgb, var(--cp-primary) 12%, transparent);
+  border-radius: var(--cp-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cp-primary);
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cp-on-surface);
+  font-family: var(--cp-font-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  font-size: 0.6875rem;
+  font-family: var(--cp-font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--cp-radius-full);
+}
+
+.badge--running {
+  background: color-mix(in srgb, var(--cp-primary) 15%, transparent);
+  color: var(--cp-primary);
+}
+
+.badge--done {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge--error {
+  background: color-mix(in srgb, var(--cp-error) 15%, transparent);
+  color: var(--cp-error);
+}
+
+.chevron {
+  color: var(--cp-outline);
+  flex-shrink: 0;
+  transition: transform var(--cp-transition);
+}
+
+.chevron--open {
+  transform: rotate(180deg);
+}
+
+.body {
+  border-top: 1px solid var(--cp-outline-variant);
+  padding: 0.75rem 1rem;
+}
+
+.code {
+  background: var(--cp-surface-container);
+  border-radius: var(--cp-radius-sm);
+  padding: 0.625rem 0.75rem;
+  font-family: var(--cp-font-mono);
+  font-size: 0.8125rem;
+  color: var(--cp-on-surface-variant);
+  overflow-x: auto;
+  white-space: pre;
+  display: block;
+}
+
+.result {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--cp-on-surface-variant);
+  font-family: var(--cp-font-body);
+  line-height: 1.5;
+}
