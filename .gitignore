@@ -14,3 +14,4 @@ htmlcov/
 src/DB_COMPARISON.md
 .pytest_cache/
 providers.toml
+node_modules/
