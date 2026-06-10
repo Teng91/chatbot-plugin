@@ -30,6 +30,10 @@
   --cp-radius-full: 9999px;
 
   --cp-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --cp-rainbow-1: #2563eb;
+  --cp-rainbow-2: #9333ea;
+  --cp-rainbow-3: #db2777;
 }
 
 /* Dark mode */
@@ -54,9 +58,11 @@
   --cp-on-secondary-container: #f1f5f9;
 
   --cp-error: #ef4444;
-}
 
-/* Auto: respect OS preference */
+  --cp-rainbow-1: #818cf8;
+  --cp-rainbow-2: #c084fc;
+  --cp-rainbow-3: #f472b6;
+}
 @media (prefers-color-scheme: dark) {
   [data-chatbot-theme='auto'] {
     --cp-primary: #c0c1ff;
@@ -79,5 +85,9 @@
     --cp-on-secondary-container: #f1f5f9;
 
     --cp-error: #ef4444;
+
+    --cp-rainbow-1: #818cf8;
+    --cp-rainbow-2: #c084fc;
+    --cp-rainbow-3: #f472b6;
   }
 }

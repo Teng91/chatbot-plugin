@@ -6,11 +6,11 @@
 
 .rainbowWrap {
   position: relative;
-  padding: 1.5px;
+  padding: 3px;
   border-radius: var(--cp-radius-md);
-  background: linear-gradient(90deg, #2563eb, #9333ea, #db2777, #2563eb);
+  background: linear-gradient(90deg, var(--cp-rainbow-1), var(--cp-rainbow-2), var(--cp-rainbow-3), var(--cp-rainbow-1));
   background-size: 300% 300%;
-  animation: rainbowFlow 4s ease infinite;
+  animation: rainbowFlow 2s ease infinite;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: transform var(--cp-transition), box-shadow var(--cp-transition);
 }
@@ -28,7 +28,7 @@
 
 .inputInner {
   background: var(--cp-surface);
-  border-radius: calc(var(--cp-radius-md) - 1.5px);
+  border-radius: calc(var(--cp-radius-md) - 3px);
   display: flex;
   align-items: center;
   padding: 0.875rem 1.25rem;
