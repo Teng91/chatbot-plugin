@@ -10,6 +10,9 @@ dependencies = [
     "chatbot-plugin-sdk",
 ]
 
+[tool.uv.sources]
+chatbot-plugin-sdk = { path = "../chatbot-plugin-sdk", editable = true }
+
 [dependency-groups]
 dev = [
     "httpx",           # ASGITransport + AsyncClient for tests
