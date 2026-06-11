@@ -15,6 +15,52 @@ All endpoints are under `/tools`.
 
 ---
 
+## SDK Usage (Python)
+
+Services may also import the toolbox as a Python SDK instead of calling HTTP endpoints.
+
+```python
+from chatbot_plugin.sdk import IngestToolboxSDK, QueryToolboxSDK
+
+# Ingest SDK — handles text ingestion (normalise → chunk → embed → save)
+from chatbot_plugin.sdk import IngestToolboxSDK
+
+ingest_sdk = IngestToolboxSDK()
+ingest_sdk.configure(
+    dbname="chatbot_plugin",
+    user="postgres",
+    password="postgres",
+    embedding_model_api="http://localhost:8080",  # embedding microservice
+)
+
+await ingest_sdk.ingest(
+    full_text="Retrieval augmented generation is a technique ...",
+    metadata={"url": "https://example.com/article", "title": "RAG 101"},
+)
+
+# Query SDK — handles read-only RAG queries
+query_sdk = QueryToolboxSDK()
+query_sdk.configure(
+    dbname="chatbot_plugin",
+    user="postgres",
+    password="postgres",
+    embedding_model_api="http://localhost:8080",
+)
+
+resp = await query_sdk.query("What is RAG?")
+print(resp.reply)
+```
+
+### Class Hierarchy
+
+| Class | DB | Embedding | Write | Query | LLM |
+|-------|----|-----------|-------|-------|-----|
+| `BaseRagProcessor` (not exported) | ✓ (internal) | — | — | `search()`, `chat()` | ✓ (fallback) |
+| `RagArticleProcessor` | ✓ | ✓ (HTTP) | `ingest()` | inherits base | inherits base |
+| `RagQueryProcessor` | ✓ | ✓ (HTTP) | — | `query()` → `chat()` | inherits base |
+
+---
+
 ## `POST /tools/chunks`
 
 Store or update an article and its pre-chunked, pre-embedded data.

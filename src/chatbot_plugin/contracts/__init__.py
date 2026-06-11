@@ -1,28 +1,19 @@
-"""Pydantic contracts — structured versions of specs/toolbox-api.md.
+"""OpenAI-compatible chat completion contracts."""
 
-These models are the source of truth for request/response validation.
-They must stay in sync with specs/toolbox-api.md. If the spec changes,
-update the corresponding model here first.
-"""
-
-from chatbot_plugin.contracts.requests import ArticleInfo, ChunkData, StoreChunksRequest, SearchRequest, ChatRequest
-from chatbot_plugin.contracts.responses import (
-    StoreChunksResponse,
-    SearchResponse,
-    ChatResponse,
-    ChunkResult,
-    ArticleCitation,
+from chatbot_plugin.contracts.chat_completion import (
+    ChatCompletionRequest,
+    ChatCompletionResponse,
+    ChatCompletionMessage,
+    ChatCompletionChoice,
+    ChatCompletionChoiceMessage,
+    ChatCompletionUsage,
 )
 
 __all__ = [
-    "ArticleInfo",
-    "ArticleCitation",
-    "ChunkData",
-    "ChunkResult",
-    "StoreChunksRequest",
-    "StoreChunksResponse",
-    "SearchRequest",
-    "SearchResponse",
-    "ChatRequest",
-    "ChatResponse",
+    "ChatCompletionRequest",
+    "ChatCompletionResponse",
+    "ChatCompletionMessage",
+    "ChatCompletionChoice",
+    "ChatCompletionChoiceMessage",
+    "ChatCompletionUsage",
 ]
