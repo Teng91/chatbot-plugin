@@ -57,7 +57,7 @@ def upgrade() -> None:
     )
 
     # Cast dense_vector to proper vector type
-    op.execute("ALTER TABLE article_chunks ALTER COLUMN dense_vector TYPE vector(1024) USING dense_vector::vector")
+    op.execute("ALTER TABLE article_chunks ALTER COLUMN dense_vector TYPE vector(768) USING dense_vector::vector")
     # Cast sparse_vector to proper sparsevec type
     op.execute("ALTER TABLE article_chunks ALTER COLUMN sparse_vector TYPE sparsevec(250002) USING sparse_vector::sparsevec")
 
